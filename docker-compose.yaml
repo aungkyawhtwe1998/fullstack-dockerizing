@@ -1,0 +1,22 @@
+# first api service is declared and second frontend project myblog is declared.
+version: "3.8"
+#projects
+services:
+  api:
+    build: ./api # api, a part to the folder where docker file is kept
+    container_name: api_c # container namea
+    ports: #list the ports that we want to map, pop mapping
+      - "4000:4000"
+    volumes:
+      - ./api:/app
+      - /app/node_modules
+  frontend: # for react frontend
+    build: ./frontend
+    container_name: frontend_c
+    ports:
+      - "3000:3000"
+    stdin_open: true # standard in open property, basically start the container in interactive mode (opposite of detached mode)
+    tty: true # container won't automatically shutdown.
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
